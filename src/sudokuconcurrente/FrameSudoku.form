@@ -531,11 +531,6 @@
     <Component class="javax.swing.JTextField" name="jTextField3">
     </Component>
     <Component class="javax.swing.JTextField" name="j1_1">
-      <Properties>
-        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="&quot;0&quot;" type="code"/>
-        </Property>
-      </Properties>
       <BindingProperties>
         <BindingProperty name="text" source="j1_1" sourcePath="0" target="j1_1" targetPath="text" updateStrategy="0" immediately="false">
           <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>

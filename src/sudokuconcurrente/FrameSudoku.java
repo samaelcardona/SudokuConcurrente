@@ -961,6 +961,8 @@ public class FrameSudoku extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
+       // metodo 1
+        
         Object candidato = -1;
         int paraFila = -1;
         int paraColumna = -1;
@@ -986,16 +988,16 @@ public class FrameSudoku extends javax.swing.JFrame {
             this.actualizarMatriz();
         }
 
-//        ///mostrar los candidatos
-//        for (int i = 0; i < matrizCandidatos.length; i++) {
-//            for (int j = 0; j < matrizCandidatos.length; j++) {
-//                String cadena = " ";
-//                for (int k = 0; k < matrizCandidatos[i][j].size(); k++) {
-//                    cadena = cadena + " " + matrizCandidatos[i][j].get(k);
-//                }
-//                System.out.println("Candidatos en " + (i + 1) + " " + (j + 1) + " " + cadena);
-//            }
-//        }
+        ///mostrar los candidatos
+        for (int i = 0; i < matrizCandidatos.length; i++) {
+            for (int j = 0; j < matrizCandidatos.length; j++) {
+                String cadena = " ";
+                for (int k = 0; k < matrizCandidatos[i][j].size(); k++) {
+                    cadena = cadena + " " + matrizCandidatos[i][j].get(k);
+                }
+                System.out.println("Candidatos en " + (i + 1) + " " + (j + 1) + " " + cadena);
+            }
+        }
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -1004,6 +1006,8 @@ public class FrameSudoku extends javax.swing.JFrame {
     }//GEN-LAST:event_j1_3ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+       
+        ///metodo 2
         Object candidato = -1;
         int paraFila = -1;
         int paraColumna = -1;
@@ -1017,30 +1021,24 @@ public class FrameSudoku extends javax.swing.JFrame {
 
                 for (int f = filIni; f < filIni + 3; f++) {
                     for (int c = colIni; c < colIni + 3; c++) {
-
-                        if (matrizCandidatos[f][c].size() > 0) {
-                            //System.out.println(" si es mayor en "+(f+1)+" "+(c+1));
+                        if (matrizCandidatos[f][c].size() > 0&&candidato.equals(-1)) { 
                             for (int i = 0; i < matrizCandidatos[f][c].size(); i++) {
                                 if (this.esUnicoEnLaCaja(matrizCandidatos[f][c].get(i), f, c) == true) {
-                                    System.out.println(" en " + (f + 1) + " " + (c + 1) + " Colocar " + matrizCandidatos[f][c].get(i));
+                                    System.out.println(" en caja " + (f + 1) + " " + (c + 1) + " Colocar " + matrizCandidatos[f][c].get(i));
                                     candidato = matrizCandidatos[f][c].get(i);
                                     paraFila = f;
                                     paraColumna = c;
+                                    i = matrizCandidatos[f][c].size();
+                                    matrizCandidatos[paraFila][paraColumna].clear();
                                     this.eliminarEnColumna(candidato, c);
                                     this.eliminarEnFila(candidato, f);
-                                    i = matrizCandidatos[f][c].size();
-                                    c = colIni + 3;
-                                    f = filIni + 3;
                                     columna = 10;
                                     fila = 10;
-
                                 }
                             }
                         }
                     }
-
                 }
-
             }
         }
 
@@ -1048,19 +1046,17 @@ public class FrameSudoku extends javax.swing.JFrame {
         if (candidato.equals(-1)) {
             for (int fila = 0; fila < 9; fila++) {
                 for (int columna = 0; columna < 9; columna++) {
-                    if (matrizCandidatos[fila][columna].size() > 0) {
+                    if (matrizCandidatos[fila][columna].size() > 0&&candidato.equals(-1)) {
                         for (int i = 0; i < matrizCandidatos[fila][columna].size(); i++) {
                             if (this.esUnicoEnLaFila(matrizCandidatos[fila][columna].get(i), fila, columna) == true) {
-
-                                System.out.println(" en " + (fila + 1) + " " + (columna + 1) + " Colocar " + matrizCandidatos[fila][columna].get(i));
+                                System.out.println(" en fila " + (fila + 1) + " " + (columna + 1) + " Colocar " + matrizCandidatos[fila][columna].get(i));
                                 candidato = matrizCandidatos[fila][columna].get(i);
                                 paraFila = fila;
                                 paraColumna = columna;
-                                this.eliminarEnColumna(candidato, columna);
-                                ///eliminar de la caja 
                                 i = matrizCandidatos[fila][columna].size();
-                                columna = 9;
-                                fila = 9;
+                                matrizCandidatos[fila][columna].clear();
+                                this.eliminarEnColumna(candidato, columna);
+                                this.eliminarEnCaja(candidato, fila, columna);
                             }
                         }
                     }
@@ -1070,21 +1066,19 @@ public class FrameSudoku extends javax.swing.JFrame {
 
         //revisar para columnas
         if (candidato.equals(-1)) {
-
             for (int columna = 0; columna < 9; columna++) {
                 for (int fila = 0; fila < 9; fila++) {
-                    if (matrizCandidatos[fila][columna].size() > 0) {
+                    if (matrizCandidatos[fila][columna].size() > 0&&candidato.equals(-1) ) {
                         for (int i = 0; i < matrizCandidatos[fila][columna].size(); i++) {
                             if (this.esUnicoEnLaColumna(matrizCandidatos[fila][columna].get(i), fila, columna) == true) {
-                                System.out.println(" en " + (fila + 1) + " " + (columna + 1) + " Colocar " + matrizCandidatos[fila][columna].get(i));
+                                System.out.println(" en  columna " + (fila + 1) + " " + (columna + 1) + " Colocar " + matrizCandidatos[fila][columna].get(i));
                                 candidato = matrizCandidatos[fila][columna].get(i);
                                 paraFila = fila;
                                 paraColumna = columna;
-                                this.eliminarEnFila(candidato, fila);
-                                //eliminar de la caja 
                                 i = matrizCandidatos[fila][columna].size();
-                                columna = 9;
-                                fila = 9;
+                                matrizCandidatos[fila][columna].clear();
+                                this.eliminarEnFila(candidato, fila);
+                                this.eliminarEnCaja(candidato, fila, columna);
                             }
                         }
 
@@ -1187,6 +1181,19 @@ public class FrameSudoku extends javax.swing.JFrame {
         for (int i = 0; i < 9; i++) {
             if (matrizCandidatos[i][j].contains(candidato)) {
                 matrizCandidatos[i][j].remove(candidato);
+            }
+        }
+    }
+
+    private void eliminarEnCaja(Object candidato, int fila, int columna) {
+        int filIni = (fila / 3) * 3;
+        int colIni = (columna / 3) * 3;
+
+        for (int f = filIni; f < filIni + 3; f++) {
+            for (int c = colIni; c < colIni + 3; c++) {
+                if (matrizCandidatos[f][c].contains(candidato)) {
+                    matrizCandidatos[f][c].remove(candidato);
+                }
             }
         }
     }
