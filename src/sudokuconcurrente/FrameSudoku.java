@@ -368,6 +368,11 @@ public class FrameSudoku extends javax.swing.JFrame implements Runnable{
         });
 
         jButton4.setText("Metodo 3");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Crear Sudoku");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -436,8 +441,18 @@ public class FrameSudoku extends javax.swing.JFrame implements Runnable{
         });
 
         jButton8.setText("Resolver");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
 
         jButton9.setText("Paso A paso");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1034,7 +1049,7 @@ public class FrameSudoku extends javax.swing.JFrame implements Runnable{
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
        cliente=new ClienteSudoku(jTextField1.getText(), 25000, "UTF-8");
-       cliente.writer(messageBoard+";"+"T1");
+      
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -1048,6 +1063,20 @@ public class FrameSudoku extends javax.swing.JFrame implements Runnable{
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        
+         cliente.writer(messageBoard+";"+"T1");
+        
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     ///genera la matriz de candidatos llamando a otros metodos
     
@@ -1137,6 +1166,13 @@ public class FrameSudoku extends javax.swing.JFrame implements Runnable{
         j9_9.setText(matrizUsuario[8][8] + "");
     }
 
+      @Override
+    public void run() {
+        
+        
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -1287,9 +1323,6 @@ public class FrameSudoku extends javax.swing.JFrame implements Runnable{
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public void run() {
-        
-    }
+  
 
 }
