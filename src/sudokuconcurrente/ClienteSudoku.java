@@ -27,10 +27,10 @@ public class ClienteSudoku implements Runnable {
     private PrintWriter out = null;
     private BufferedReader in = null;
     private Thread theThread = null;
-    private String [] aux;
-    
+    private String[] aux;
+    private FrameSudoku frame;
 
-    public ClienteSudoku(String hostname, int port,String encoding) {
+    public ClienteSudoku(String hostname, int port, String encoding) {
         this.hostname = hostname;
         this.port = port;
         this.encoding = encoding;
@@ -63,29 +63,49 @@ public class ClienteSudoku implements Runnable {
         getOut().println(message);
     }
 
-    
     @Override
     public void run() {
-         String redline="";
-        boolean quit=true;
-        while (quit) {            
+        String redline = "";
+        boolean quit = true;
+        while (quit) {
             try {
-                
+
                 //aca recibo las respuestas del servidor para el metodo 1
-                redline=getIn().readLine()+"\n";
+                redline = getIn().readLine() + "\n";
+                System.out.println("ReadLine" + redline);
+
+                String aux[] = redline.split("\n");
                 
-                if (redline.startsWith("<OK>")) {
-                    System.out.println(""+ redline);
+                for (int i = 0; i < aux.length; i++) {
+                    if (aux[i].startsWith("<OK>")) {
+                        System.out.println("" + redline);
+
+                        String[] cadena;
+                        cadena = aux[i].substring(4).split(",");
+                        int fila = Integer.parseInt(cadena[0]);
+                        int columna = Integer.parseInt(cadena[1]);
+                        int valor = -1;
+                        try {
+                            valor = Integer.parseInt(cadena[2].trim());
+                        } catch (Exception e) {
+                            System.out.println("exception" + e);
+                        }
+
+                        if (valor != -1) {
+                            frame.agregarAMatriz(fila, columna, valor);
+                        }
+                    }
+
                 }
-                
+
             } catch (IOException e) {
                 Logger.getLogger(ClienteSudoku.class.getName()).log(Level.SEVERE, null, e);
-                
-                if (redline==null) {
-                    quit=false;
+
+                if (redline == null) {
+                    quit = false;
                 }
             }
-            
+
         }
 
     }
@@ -154,6 +174,8 @@ public class ClienteSudoku implements Runnable {
         this.aux = aux;
     }
 
-    
-    
+    void recibirFrame(FrameSudoku frame) {
+        this.frame = frame;
+    }
+
 }
