@@ -1033,7 +1033,7 @@ public class FrameSudoku extends javax.swing.JFrame implements Runnable {
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         cliente.writer(messageBoard + ";" + "T1");
         cliente.writer(messageBoard + ";" + "T2");
-//        cliente.writer(messageBoard + ";" + "T3");
+        cliente.writer(messageBoard + ";" + "T3");
 //        cliente.writer(messageBoard + ";" + "T4");
 //        cliente.writer(messageBoard + ";" + "T5");
         this.actualizarMatriz();
