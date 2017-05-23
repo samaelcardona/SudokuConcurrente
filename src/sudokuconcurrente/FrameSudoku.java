@@ -15,7 +15,7 @@ public class FrameSudoku extends javax.swing.JFrame implements Runnable {
 
     int[][] matrizUsuario;
     LinkedList[][] matrizCandidatos;
-    ClienteSudoku cliente;
+    LinkedList<ClienteSudoku> listaClientes;
     String messageBoard;
 
     /**
@@ -25,6 +25,12 @@ public class FrameSudoku extends javax.swing.JFrame implements Runnable {
         initComponents();
         matrizUsuario = new int[9][9];
         messageBoard = "";
+        listaClientes = new LinkedList<>();
+
+        for (int i = 0; i < 6; i++) {
+            listaClientes.add(new ClienteSudoku(null, 0, "", ""));
+        }
+
     }
 
     /**
@@ -977,11 +983,11 @@ public class FrameSudoku extends javax.swing.JFrame implements Runnable {
         matrizUsuario[8][7] = Integer.parseInt(j9_8.getText());
         matrizUsuario[8][8] = Integer.parseInt(j9_9.getText());
 
-      this.generarMensaje();
+        this.generarMensaje();
     }
-    
-    public void generarMensaje(){
-          String cadena1;
+
+    public void generarMensaje() {
+        String cadena1;
         String cadena2;
 
         cadena2 = "<board>";
@@ -996,9 +1002,9 @@ public class FrameSudoku extends javax.swing.JFrame implements Runnable {
         this.messageBoard = cadena2;
 
         //aca envio la matriz 
-        System.out.println("cadena2 " + cadena2);
+       // System.out.println("cadena2 " + cadena2);
     }
-    
+
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         this.crearSudoku();
     }//GEN-LAST:event_jButton5ActionPerformed
@@ -1008,18 +1014,24 @@ public class FrameSudoku extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_j1_3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        cliente = new ClienteSudoku(jTextField1.getText(), 25000, "UTF-8");
-        cliente.recibirFrame(this);
+        ClienteSudoku cliente;
+        cliente = new ClienteSudoku(jTextField1.getText(), 25000, "UTF-8", "T1");
+        listaClientes.set(0, cliente);
+        listaClientes.get(0).recibirFrame(this);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        cliente = new ClienteSudoku(jTextField1.getText(), 25000, "UTF-8");
-        cliente.recibirFrame(this);
+        ClienteSudoku cliente;
+        cliente = new ClienteSudoku(jTextField2.getText(), 25000, "UTF-8", "T2");
+        listaClientes.set(1, cliente);
+        listaClientes.get(1).recibirFrame(this);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        cliente = new ClienteSudoku(jTextField1.getText(), 25000, "UTF-8");
-        cliente.recibirFrame(this);
+        ClienteSudoku cliente;
+        cliente = new ClienteSudoku(jTextField3.getText(), 25000, "UTF-8", "T3");
+        listaClientes.set(2, cliente);
+        listaClientes.get(2).recibirFrame(this);
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -1031,9 +1043,12 @@ public class FrameSudoku extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        cliente.writer(messageBoard + ";" + "T1");
-        cliente.writer(messageBoard + ";" + "T2");
-        cliente.writer(messageBoard + ";" + "T3");
+        System.out.println("T1");
+        listaClientes.get(0).writer(messageBoard + ";" + "T1");
+        System.out.println("T2");
+        listaClientes.get(1).writer(messageBoard + ";" + "T2");
+        System.out.println("T3");
+        listaClientes.get(2).writer(messageBoard + ";" + "T3");
 //        cliente.writer(messageBoard + ";" + "T4");
 //        cliente.writer(messageBoard + ";" + "T5");
         this.actualizarMatriz();
@@ -1045,7 +1060,7 @@ public class FrameSudoku extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_j2_4ActionPerformed
 
     void agregarAMatriz(int fila, int columna, int valor) {
-        System.out.println("valor" + valor);
+        //System.out.println("valor" + valor);
         this.matrizUsuario[fila][columna] = valor;
         this.actualizarMatriz();
         this.generarMensaje();

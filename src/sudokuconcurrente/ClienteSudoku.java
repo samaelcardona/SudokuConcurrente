@@ -29,12 +29,13 @@ public class ClienteSudoku implements Runnable {
     private Thread theThread = null;
     private String[] aux;
     private FrameSudoku frame;
+    private String metodo;
 
-    public ClienteSudoku(String hostname, int port, String encoding) {
+    public ClienteSudoku(String hostname, int port, String encoding, String metodo) {
         this.hostname = hostname;
         this.port = port;
         this.encoding = encoding;
-        open();
+        this.metodo = metodo;
     }
 
     public void open() {
@@ -72,28 +73,39 @@ public class ClienteSudoku implements Runnable {
 
                 //aca recibo las respuestas del servidor para el metodo 1
                 redline = getIn().readLine() + "\n";
-                System.out.println("ReadLine" + redline);
+                // System.out.println("ReadLine" + redline);
 
                 String aux[] = redline.split("\n");
-                
+
                 for (int i = 0; i < aux.length; i++) {
                     if (aux[i].startsWith("<OK>")) {
-                        System.out.println("" + redline);
+                        System.out.println("" + this.metodo + " " + redline);
 
                         String[] cadena;
-                        cadena = aux[i].substring(4).split(",");
-                        int fila = Integer.parseInt(cadena[0]);
-                        int columna = Integer.parseInt(cadena[1]);
-                        int valor = -1;
-                        try {
-                            valor = Integer.parseInt(cadena[2].trim());
-                        } catch (Exception e) {
-                            System.out.println("exception" + e);
+                        cadena = aux[i].substring(4).split(";");
+
+                        for (int j = 0; j < cadena.length; j++) {
+                            String[] aux2 = cadena[j].split(",");
+
+                            int fila = -1;
+                            int columna = -1;
+                            int valor = -1;
+
+                            try {
+                                fila = Integer.parseInt("" + aux2[0].trim());
+                                columna = Integer.parseInt("" + aux2[1].trim());
+                                valor = -1;
+
+                                valor = Integer.parseInt("" + aux2[2].trim());
+                            } catch (Exception e) {
+                                System.out.println("exception" + e);
+                            }
+
+                            if (valor != -1) {
+                                frame.agregarAMatriz(fila, columna, valor);
+                            }
                         }
 
-                        if (valor != -1) {
-                            frame.agregarAMatriz(fila, columna, valor);
-                        }
                     }
 
                 }
@@ -176,6 +188,23 @@ public class ClienteSudoku implements Runnable {
 
     void recibirFrame(FrameSudoku frame) {
         this.frame = frame;
+        open();
+    }
+
+    public FrameSudoku getFrame() {
+        return frame;
+    }
+
+    public void setFrame(FrameSudoku frame) {
+        this.frame = frame;
+    }
+
+    public String getMetodo() {
+        return metodo;
+    }
+
+    public void setMetodo(String metodo) {
+        this.metodo = metodo;
     }
 
 }
