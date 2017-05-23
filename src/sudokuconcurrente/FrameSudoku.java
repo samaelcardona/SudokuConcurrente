@@ -7,6 +7,7 @@ package sudokuconcurrente;
 
 import java.awt.Color;
 import java.util.LinkedList;
+import javax.swing.JTextArea;
 
 /**
  *
@@ -1439,6 +1440,16 @@ public class FrameSudoku extends javax.swing.JFrame implements Runnable {
         });
     }
 
+    public JTextArea getjTextArea1() {
+        return jTextArea1;
+    }
+
+    public void setjTextArea1(JTextArea jTextArea1) {
+        this.jTextArea1 = jTextArea1;
+    }
+
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField j1_1;
     private javax.swing.JTextField j1_2;

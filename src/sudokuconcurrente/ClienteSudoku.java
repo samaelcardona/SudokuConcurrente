@@ -75,11 +75,15 @@ public class ClienteSudoku implements Runnable {
                 redline = getIn().readLine() + "\n";
                 // System.out.println("ReadLine" + redline);
 
+                 frame.getjTextArea1().setText(frame.getjTextArea1().getText()+"\n"+this.metodo+" "+redline);
+                
                 String aux[] = redline.split("\n");
 
                 for (int i = 0; i < aux.length; i++) {
                     if (aux[i].startsWith("<OK>")) {
-                        System.out.println("" + this.metodo + " " + redline);
+                        
+                        frame.getjTextArea1().setText(frame.getjTextArea1().getText()+"\n"+ this.metodo + " " + redline);
+                        
 
                         String[] cadena;
                         cadena = aux[i].substring(4).split(";");
