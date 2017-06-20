@@ -1194,7 +1194,16 @@ public class FrameSudoku extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
+        while (this.matrizTieneAlgunCero() == true) {
+            listaClientes.get(0).writer(messageBoard + ";" + "T1");
+
+            listaClientes.get(1).writer(messageBoard + ";" + "T2");
+
+            listaClientes.get(2).writer(messageBoard + ";" + "T3");
+//        cliente.writer(messageBoard + ";" + "T4");
+//        cliente.writer(messageBoard + ";" + "T5");
+            this.actualizarMatriz();
+        }
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
@@ -1225,9 +1234,9 @@ public class FrameSudoku extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     void agregarAMatriz(int fila, int columna, int valor) {
-        //System.out.println("valor" + valor);
+
         this.matrizUsuario[fila][columna] = valor;
-        this.matrizColors[fila][columna]=Color.red;
+        this.matrizColors[fila][columna] = Color.red;
         this.actualizarMatriz();
         this.generarMensaje();
     }
@@ -1448,8 +1457,7 @@ public class FrameSudoku extends javax.swing.JFrame implements Runnable {
         this.jTextArea1 = jTextArea1;
     }
 
-    
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField j1_1;
     private javax.swing.JTextField j1_2;
@@ -1567,5 +1575,16 @@ public class FrameSudoku extends javax.swing.JFrame implements Runnable {
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     // End of variables declaration//GEN-END:variables
+
+    private boolean matrizTieneAlgunCero() {
+        for (int i = 0; i < matrizUsuario.length; i++) {
+            for (int j = 0; j < matrizUsuario.length; j++) {
+                if (matrizUsuario[i][j]==0) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
 }

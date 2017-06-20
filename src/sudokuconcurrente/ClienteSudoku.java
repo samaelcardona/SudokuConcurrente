@@ -82,25 +82,23 @@ public class ClienteSudoku implements Runnable {
                 for (int i = 0; i < aux.length; i++) {
                     if (aux[i].startsWith("<OK>")) {
                         
-                        frame.getjTextArea1().setText(frame.getjTextArea1().getText()+"\n"+ this.metodo + " " + redline);
+                       // frame.getjTextArea1().setText(frame.getjTextArea1().getText()+"\n"+ this.metodo + " " + redline);
                         
 
                         String[] cadena;
                         cadena = aux[i].substring(4).split(";");
 
                         for (int j = 0; j < cadena.length; j++) {
-                            String[] aux2 = cadena[j].split(",");
+                          
 
                             int fila = -1;
                             int columna = -1;
                             int valor = -1;
 
                             try {
-                                fila = Integer.parseInt("" + aux2[0].trim());
-                                columna = Integer.parseInt("" + aux2[1].trim());
-                                valor = -1;
-
-                                valor = Integer.parseInt("" + aux2[2].trim());
+                                fila = Integer.parseInt("" + cadena[j].charAt(0));
+                                columna = Integer.parseInt("" + cadena[j].charAt(1));
+                                valor = Integer.parseInt("" + cadena[j].charAt(2));
                             } catch (Exception e) {
                                 System.out.println("exception" + e);
                             }
